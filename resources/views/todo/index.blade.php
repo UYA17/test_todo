@@ -16,7 +16,8 @@
       <p class="title">Todo List</p>
       <div class="todo">
         <form action="/todo/create" method="post" class="add-area">
-          <input type="text" name="content" class="input-add">
+          @csrf
+          <input type="text" name="content" class="input-add" value="">
           <input type="submit" class="button-add" value="追加">
 
         </form>
@@ -29,18 +30,18 @@
               <th>削除</th>
             </tr>
 
+            @foreach($tasks as $task)
             <tr>
-              @foreach($tasks as $tasks)
-              <td>2021-06-13 03:29:09
-                <form action="" method="post"></form>
-                <input type="hidden">
+              <td>{{$task->created_at}}
+                <form action="{{route('update',['id'=>$param['id']])}}" method="post">
               </td>
               <td>
-                <input type="text" class="update-input">
+                <input type="text" class="update-input" value="{{$task->content}}" name="content">
               </td>
               <td>
                 <button class="update-button">更新</button>
               </td>
+              </form>
               <td>
                 <form action="/todo/delete" method="post">
                   <input type="hidden" name="" value="">
@@ -48,6 +49,7 @@
                 </form>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
