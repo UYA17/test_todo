@@ -32,15 +32,17 @@
 
             @foreach($tasks as $task)
             <tr>
-              <td>{{$task->created_at}}
-                <form action="{{route('update',['id'=>$param['id']])}}" method="post">
-              </td>
-              <td>
-                <input type="text" class="update-input" value="{{$task->content}}" name="content">
-              </td>
-              <td>
-                <button class="update-button">更新</button>
-              </td>
+              <form action="/todo/update/{id}" method="post">
+                <td>
+                  {{$task->created_at}}
+                  <input type="hidden" class="id" value="{{$task->id}}">
+                </td>
+                <td>
+                  <input type="text" class="update-input" value="{{$task->content}}" name="content">
+                </td>
+                <td>
+                  <button class="update-button">更新</button>
+                </td>
               </form>
               <td>
                 <form action="/todo/delete" method="post">

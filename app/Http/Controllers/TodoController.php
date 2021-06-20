@@ -26,6 +26,7 @@ class TodoController extends Controller
     public function update(Request $request)
     {
         $param = [
+
             'content' => $request->content,
             'updated_at' => now()
         ];
