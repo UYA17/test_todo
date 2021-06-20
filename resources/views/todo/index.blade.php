@@ -33,6 +33,7 @@
             @foreach($tasks as $task)
             <tr>
               <form action="/todo/update/{id}" method="post">
+                @csrf
                 <td>
                   {{$task->created_at}}
                   <input type="hidden" class="id" value="{{$task->id}}">
