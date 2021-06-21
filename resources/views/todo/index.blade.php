@@ -17,6 +17,11 @@
       <div class="todo">
         <form action="/todo/create" method="post" class="add-area">
           @csrf
+          @error('content')
+          <ul>
+            <li>{{$message}}</li>
+            @enderror
+          </ul>
           <input type="text" name="content" class="input-add" value="">
           <input type="submit" class="button-add" value="追加">
 
@@ -32,7 +37,8 @@
 
             @foreach($tasks as $task)
             <tr>
-              <form action="/todo/update/{id}" method="post">
+
+              <form action="{{route('todo.update',['id'=>$task->id])}}" method="post">
                 @csrf
                 <td>
                   {{$task->created_at}}
@@ -45,12 +51,15 @@
                   <button class="update-button">更新</button>
                 </td>
               </form>
+
               <td>
                 <form action="/todo/delete" method="post">
-                  <input type="hidden" name="" value="">
+                  @csrf
+                  <input type="hidden" name="id" value="{{$task->id}}">
                   <button class="delete-button">削除</button>
                 </form>
               </td>
+
             </tr>
             @endforeach
           </tbody>

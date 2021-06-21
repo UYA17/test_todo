@@ -13,6 +13,14 @@ class TodoController extends Controller
         $tasks = DB::table('todo')->get();
         return view('todo.index', ['tasks' => $tasks]);
     }
+    public function post(Request $request)
+    {
+        $validate_rule = [
+            'content' => 'required|max:20'
+        ];
+        $this->validate($request, $validate_rule);
+        return view('todo.index');
+    }
     public function create(Request $request)
     {
         $param = [
@@ -26,12 +34,15 @@ class TodoController extends Controller
     public function update(Request $request)
     {
         $param = [
-
             'content' => $request->content,
-            'updated_at' => now()
+            'created_at' => now()
         ];
-        DB::table('todo')->where('id', $request->id)
-            ->update($param);
+        DB::table('todo')->where('id', $request->id)->update($param);
+        return redirect('/');
+    }
+    public function delete(Request $request)
+    {
+        DB::table('todo')->where('id', $request->id)->delete();
         return redirect('/');
     }
 }
